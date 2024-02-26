@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Forex Form</title>
+    <style>
+        body {
+            background-image: url('/static/images/tapeta.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 0 auto;
+            max-width: 400px;
+        }
+
+        h1 {
+            font-size: 17px;
+            color: white;
+            padding: 20px;
+            border-radius: 1px;
+            text-align: center;
+            margin: 0 auto;
+            max-width: 1000px;
+        }
+        h2 {
+            color: #333;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #footer {
+            margin-top: 20px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1> Kontrakty CFD są złożonymi instrumentami i wiążą się z dużym ryzykiem
+            szybkiej utraty środków pieniężnych z powodu dźwigni finansowej. 82% rachunków
+            inwestorów detalicznych odnotowuje straty w wyniku handlu kontraktami CFD.
+            Zastanów się, czy możesz pozwolić sobie na wysokie ryzyko utraty pieniędzy.
+        </h1>
+    </header>
+    <div id="grid-container">
+        <div id="container">
+            <h2>Dostępne dane Forex:</h2>
+            <form method="post" action="{% url 'forex' %}">
+                {% csrf_token %}
+                    {% for radio in form.currency_pair %}
+                    {{ radio }}
+                {% endfor %}
+                <button type="submit">Sprawdź rynek</button><p>
+                <p>         (...naciśnij i odczekaj chwilkę)</p>
+            </form>
+        </div>
+    </div>
+
+    <div id="footer">
+        <script>
+            // JavaScript function to update the footer with the current date and time
+            function updateFooter() {
+                var currentDateTime = new Date();
+                var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', timeZoneName: 'short' };
+                var formattedDateTime = currentDateTime.toLocaleDateString('pl-PL', options);
+                document.getElementById('footer').innerText = 'Czas: ' + formattedDateTime;
+            }
+
+            // Call the function when the page loads
+            window.onload = updateFooter;
+        </script>
+    </div>
+</body>
+</html>
